@@ -40,7 +40,13 @@ jobs:
             Set-Content dist\SHA256SUMS.txt -Encoding ascii
           Get-Content dist\SHA256SUMS.txt
 
+      # Idempotent, so a tag can be rebuilt without the step failing on an
+      # existing release.
       - name: Publish release
-        run: gh release create "$env:GITHUB_REF_NAME" dist\tri-setup.exe dist\tri.exe dist\tri-gui.exe dist\SHA256SUMS.txt --generate-notes
+        run: |
+          if (-not (gh release view "$env:GITHUB_REF_NAME" 2>$null)) {
+            gh release create "$env:GITHUB_REF_NAME" --generate-notes
+          }
+          gh release upload "$env:GITHUB_REF_NAME" dist\tri-setup.exe dist\tri.exe dist\tri-gui.exe dist\SHA256SUMS.txt --clobber
         env:
           GH_TOKEN: ${{ github.token }}
