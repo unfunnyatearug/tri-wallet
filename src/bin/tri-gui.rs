@@ -3,7 +3,7 @@
 use eframe::egui;
 use std::sync::mpsc::{channel, Receiver, Sender};
 use tri::derive::Wallet;
-use tri::util::{format_amount, parse_amount};
+use tri::util::{format_amount, parse_amount, EARLY_BUILD_SHORT, EARLY_BUILD_WARNING};
 use tri::{btc, config, derive, keystore, sol};
 
 fn main() -> eframe::Result {
@@ -647,7 +647,9 @@ impl App {
         ui.add_space(40.0);
         ui.heading("tri wallet");
         ui.label("Bitcoin, Solana and USDC in one recovery phrase.");
-        ui.add_space(24.0);
+        ui.add_space(16.0);
+        ui.colored_label(BAD, EARLY_BUILD_WARNING);
+        ui.add_space(20.0);
         if ui.button("Create a new wallet").clicked() {
             let mut entropy = [0u8; 16];
             use rand::RngCore;
@@ -727,6 +729,8 @@ impl App {
 
     fn ui_create(&mut self, ui: &mut egui::Ui) {
         ui.heading("Recovery phrase");
+        ui.colored_label(BAD, EARLY_BUILD_WARNING);
+        ui.add_space(8.0);
         ui.colored_label(
             WARN,
             "Write these words down on paper, in this order. This is the only copy that can restore the wallet. Anyone who has them owns the funds.",
@@ -860,6 +864,7 @@ impl App {
             ui.selectable_value(&mut self.tab, Tab::Security, "Security");
         });
         ui.separator();
+        ui.colored_label(BAD, EARLY_BUILD_SHORT);
         if !self.protected {
             ui.colored_label(
                 WARN,
@@ -1050,6 +1055,8 @@ impl App {
     fn ui_security(&mut self, ui: &mut egui::Ui) {
         ui.add_space(8.0);
         ui.heading("Security");
+        ui.colored_label(BAD, EARLY_BUILD_WARNING);
+        ui.add_space(8.0);
         ui.colored_label(
             MUTED,
             "These are recommendations. This wallet does not enforce any of them.",

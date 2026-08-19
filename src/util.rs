@@ -1,5 +1,14 @@
 use anyhow::{anyhow, Result};
 
+/// Shown wherever a user is about to commit to using this wallet. Kept in one
+/// place so the command line and the window cannot drift apart.
+pub const EARLY_BUILD_WARNING: &str = "This is an extremely early build and using it is a bad idea. It has not been audited, it has not been used at scale, and some of its code paths have never run against the live network. Use only an amount you are prepared to lose entirely, and write the recovery phrase down on paper before sending anything to this wallet.";
+
+/// The same warning, short enough to sit on screen permanently.
+pub const EARLY_BUILD_SHORT: &str =
+    "Extremely early build. Not audited. Use only an amount you can lose entirely.";
+
+
 pub fn warn(msg: &str) {
     eprintln!("WARNING: {msg}");
 }

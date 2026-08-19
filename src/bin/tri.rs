@@ -1,7 +1,10 @@
 use anyhow::{bail, Result};
 use clap::{Parser, Subcommand};
 use tri::derive::Wallet;
-use tri::util::{confirm, format_amount, note, parse_amount, prompt_line, warn};
+use tri::util::{
+    confirm, format_amount, note, parse_amount, prompt_line, warn, EARLY_BUILD_SHORT,
+    EARLY_BUILD_WARNING,
+};
 use tri::{btc, config, derive, keystore, sol};
 
 #[derive(Parser)]
@@ -10,7 +13,9 @@ use tri::{btc, config, derive, keystore, sol};
     version,
     about = "A wallet for Bitcoin, Solana and USDC.",
     long_about = "A wallet for Bitcoin, Solana and USDC. One recovery phrase covers all three. \
-Bitcoin runs on the base chain only, there is no Lightning support."
+Bitcoin runs on the base chain only, there is no Lightning support.",
+    after_help = EARLY_BUILD_SHORT,
+    after_long_help = EARLY_BUILD_WARNING
 )]
 struct Cli {
     #[command(subcommand)]
@@ -140,6 +145,8 @@ fn new_passphrase() -> Result<String> {
 fn print_security_checklist() {
     println!("Security checklist");
     println!();
+    warn(EARLY_BUILD_WARNING);
+    println!();
     println!("These are recommendations. This wallet does not enforce any of them.");
     println!();
     println!("1. Write the recovery phrase on paper. Anyone holding those words owns");
@@ -178,6 +185,12 @@ fn cmd_new(words: usize) -> Result<()> {
     if words != 12 && words != 24 {
         bail!("word count must be 12 or 24");
     }
+    warn(EARLY_BUILD_WARNING);
+    if !confirm("Continue?")? {
+        println!("Cancelled. No wallet was created.");
+        return Ok(());
+    }
+    println!();
     let entropy_bytes = if words == 24 { 32 } else { 16 };
     let mut entropy = vec![0u8; entropy_bytes];
     use rand::RngCore;
@@ -217,6 +230,8 @@ fn cmd_import() -> Result<()> {
             return Ok(());
         }
     }
+    warn(EARLY_BUILD_WARNING);
+    println!();
     println!("Enter the recovery phrase, all words on one line, separated by spaces.");
     let phrase = prompt_line("Phrase: ")?;
     let wallet = Wallet::from_mnemonic(&phrase)?;
