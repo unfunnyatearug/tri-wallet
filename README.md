@@ -10,6 +10,9 @@ and can be used interchangeably.
 
 Bitcoin support is base chain only. Lightning is not supported.
 
+This program WAS mostly written with Claude Code, BTW.
+The slop README is staying for now
+
 ## Status
 
 **This is an extremely early build. Using it is a bad idea.**
