@@ -12,8 +12,17 @@ Bitcoin support is base chain only. Lightning is not supported.
 
 ## Status
 
-This software has not been audited. Keep balances small. See
-[SECURITY.md](SECURITY.md).
+**This is an extremely early build. Using it is a bad idea.**
+
+The current release exists for convenience and to track public releases from
+the start. It is not a recommendation to put money in it. It has not been
+audited, it has not been used at scale, and several of its code paths have
+never run against the live network. Assume it can lose funds.
+
+If you use it anyway, use an amount you are prepared to lose entirely, and
+write the recovery phrase down on paper before you send anything to it.
+
+See [SECURITY.md](SECURITY.md).
 
 ## Install
 

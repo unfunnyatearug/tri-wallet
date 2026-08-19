@@ -2,8 +2,14 @@
 
 ## Status
 
-This software has not been audited. It is a personal project. Treat it as
-unreviewed code that handles private keys, and keep balances small.
+This is an extremely early build and using it is a bad idea. The published
+release exists for convenience and to track public releases from the start, not
+as a recommendation to put money in it.
+
+The software has not been audited. It is a personal project. Treat it as
+unreviewed code that handles private keys. Several code paths, including
+Bitcoin broadcast, have never run against the live network. Assume it can lose
+funds.
 
 ## Reporting a vulnerability
 
