@@ -5,7 +5,7 @@
 
 !define APP_NAME    "tri wallet"
 !define APP_ID      "tri"
-!define APP_VERSION "0.1.0"
+!define APP_VERSION "0.1.1"
 !define PUBLISHER   "unfunnyatearug"
 !define REG_UNINST  "Software\Microsoft\Windows\CurrentVersion\Uninstall\${APP_ID}"
 
@@ -19,7 +19,7 @@ RequestExecutionLevel user
 InstallDir "$LOCALAPPDATA\Programs\tri"
 InstallDirRegKey HKCU "Software\${APP_ID}" "InstallDir"
 
-VIProductVersion "0.1.0.0"
+VIProductVersion "0.1.1.0"
 VIAddVersionKey "ProductName"     "${APP_NAME}"
 VIAddVersionKey "FileDescription" "Wallet for Bitcoin, Solana and USDC"
 VIAddVersionKey "FileVersion"     "${APP_VERSION}"

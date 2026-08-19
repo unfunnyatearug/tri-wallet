@@ -45,7 +45,7 @@ jobs:
       - name: Publish release
         run: |
           if (-not (gh release view "$env:GITHUB_REF_NAME" 2>$null)) {
-            gh release create "$env:GITHUB_REF_NAME" --generate-notes
+            gh release create "$env:GITHUB_REF_NAME" --notes-file .github\RELEASE_NOTES.md
           }
           gh release upload "$env:GITHUB_REF_NAME" dist\tri-setup.exe dist\tri.exe dist\tri-gui.exe dist\SHA256SUMS.txt --clobber
         env:
