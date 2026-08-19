@@ -10,6 +10,10 @@ funds.
 If you use it anyway, use an amount you are prepared to lose entirely, and
 write the recovery phrase down on paper before sending anything to it.
 
+## Authorship
+
+This program was mostly written with Claude Code.
+
 ## Install
 
 Download `tri-setup.exe` and run it. It installs to
